@@ -1,0 +1,15 @@
+{
+	"name": "OAuth",
+	"description": "OAuth2 Server plugin",
+
+	"author": "Xintesa",
+	"authorEmail": "oss@xintesa.com",
+	"authorUrl": "http://xintesa.com",
+
+	"dependencies": {
+		"plugins": [
+			"Acl",
+			"Extensions"
+		]
+	}
+}
