@@ -2,10 +2,10 @@
 
 App::uses('AppController', 'Controller');
 
-App::import('Vendor', 'oauth2-php/lib/OAuth2');
-App::import('Vendor', 'oauth2-php/lib/IOAuth2Storage');
-App::import('Vendor', 'oauth2-php/lib/IOAuth2GrantCode');
-App::import('Vendor', 'oauth2-php/lib/IOAuth2RefreshTokens');
+App::import('Vendor', 'OAuth.oauth2-php/lib/OAuth2');
+App::import('Vendor', 'OAuth.oauth2-php/lib/IOAuth2Storage');
+App::import('Vendor', 'OAuth.oauth2-php/lib/IOAuth2GrantCode');
+App::import('Vendor', 'OAuth.oauth2-php/lib/IOAuth2RefreshTokens');
 
 /**
  * Description of OAuthAppController
