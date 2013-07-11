@@ -102,6 +102,12 @@ class Client extends OAuthAppModel {
 		)
 	);
 
+	public $belongsTo = array(
+		'User' => array(
+			'className' => 'Users.User',
+		),
+	);
+
 /**
  * AddClient
  *
