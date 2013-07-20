@@ -49,8 +49,10 @@ class Client extends OAuthAppModel {
 			),
 		),
 		'redirect_uri' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'isUnique' => array(
+				'rule' => array('isUnique'),
+				'allowEmpty' => true,
+				'on' => 'create',
 			),
 		),
 	);
