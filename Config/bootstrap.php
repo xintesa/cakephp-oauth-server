@@ -1,5 +1,7 @@
 <?php
 
+Croogo::hookApiComponent('Users', 'OAuth.OAuthUserApi');
+
 CroogoNav::add('extensions.children.oauth', array(
 	'title' => 'OAuth',
 	'url' => '#',
