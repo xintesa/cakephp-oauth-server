@@ -1,6 +1,7 @@
 <?php
 
 App::uses('OAuthAppModel', 'OAuth.Model');
+App::uses('OAuthUtility', 'OAuth.Lib');
 
 /**
  * RefreshToken Model
@@ -71,12 +72,12 @@ class RefreshToken extends OAuthAppModel {
 	);
 
 /**
- * beforeSave method to hash tokens before saving
+ * beforeSave method to secure tokens before saving
  *
  * @return boolean
  */
 	public function beforeSave($options = array()) {
-		$this->data['RefreshToken']['refresh_token'] = OAuthComponent::hash($this->data['RefreshToken']['refresh_token']);
+		$this->data['RefreshToken']['refresh_token'] = OAuthUtility::secure($this->data['RefreshToken']['refresh_token']);
 		return true;
 	}
 

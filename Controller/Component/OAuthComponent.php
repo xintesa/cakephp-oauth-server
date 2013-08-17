@@ -16,6 +16,7 @@
  *
  */
 
+App::uses('OAuthUtility', 'OAuth.Lib');
 App::uses('Component', 'Controller');
 App::uses('Router', 'Routing');
 App::uses('Security', 'Utility');
@@ -305,7 +306,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
 				));
 			$token = empty($token) ? $this->getBearerToken() : $token;
 			$data = $this->AccessToken->find('first', array(
-				'conditions' => array('oauth_token' => self::hash($token)),
+				'conditions' => array('oauth_token' => OAuthUtility::secure($token)),
 				'recursive' => 1
 			));
 			if (!$data) {
@@ -326,6 +327,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
  *
  * @param string $password
  * @return string Hashed password
+ * @deprecated Will be removed in future version
  */
 	public static function hash($password) {
 		return Security::hash($password, null, true);
@@ -400,7 +402,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
 	public function checkClientCredentials($client_id, $client_secret = null) {
 		$conditions = array('client_id' => $client_id);
 		if ($client_secret) {
-			$conditions['client_secret'] = self::hash($client_secret);
+			$conditions['client_secret'] = OAuthUtility::secure($client_secret);
 		}
 		$client = $this->Client->find('first', array(
 			'conditions' => $conditions,
@@ -442,7 +444,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
  */
 	public function getAccessToken($oauth_token) {
 		$accessToken = $this->AccessToken->find('first', array(
-			'conditions' => array('oauth_token' => self::hash($oauth_token)),
+			'conditions' => array('oauth_token' => OAuthUtility::secure($oauth_token)),
 			'recursive' => -1,
 		));
 		if ($accessToken) {
@@ -498,7 +500,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
  */
 	public function getRefreshToken($refresh_token) {
 		$refreshToken = $this->RefreshToken->find('first', array(
-			'conditions' => array('refresh_token' => self::hash($refresh_token)),
+			'conditions' => array('refresh_token' => OAuthUtility::secure($refresh_token)),
 			'recursive' => -1
 		));
 		if ($refreshToken) {
@@ -576,7 +578,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
  */
 	public function getAuthCode($code) {
 		$authCode = $this->AuthCode->find('first', array(
-			'conditions' => array('code' => self::hash($code)),
+			'conditions' => array('code' => OAuthUtility::secure($code)),
 			'recursive' => -1
 		));
 		if ($authCode) {

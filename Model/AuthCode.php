@@ -1,6 +1,7 @@
 <?php
 
 App::uses('OAuthAppModel', 'OAuth.Model');
+App::uses('OAuthUtility', 'OAuth.Lib');
 
 /**
  * AuthCode Model
@@ -83,12 +84,12 @@ class AuthCode extends OAuthAppModel {
 	);
 
 /**
- * beforeSave method to hash codes before saving
+ * beforeSave method to secure codes before saving
  *
  * @return boolean
  */
 	public function beforeSave($options = array()) {
-		$this->data['AuthCode']['code'] = OAuthComponent::hash($this->data['AuthCode']['code']);
+		$this->data['AuthCode']['code'] = OAuthUtility::secure($this->data['AuthCode']['code']);
 		return true;
 	}
 

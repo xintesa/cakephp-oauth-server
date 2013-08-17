@@ -1,6 +1,7 @@
 <?php
 
 App::uses('OAuthAppModel', 'OAuth.Model');
+App::uses('OAuthUtility', 'OAuth.Lib');
 
 /**
  * AccessToken Model
@@ -71,12 +72,12 @@ class AccessToken extends OAuthAppModel {
 	);
 
 /**
- * beforeSave method to hash tokens before saving
+ * beforeSave method to secure tokens before saving
  *
  * @return boolean
  */
 	public function beforeSave($options = array()) {
-		$this->data['AccessToken']['oauth_token'] = OAuthComponent::hash($this->data['AccessToken']['oauth_token']);
+		$this->data['AccessToken']['oauth_token'] = OAuthUtility::secure($this->data['AccessToken']['oauth_token']);
 		return true;
 	}
 

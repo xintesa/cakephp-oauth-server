@@ -1,7 +1,7 @@
 <?php
 
 App::uses('OAuthAppModel', 'OAuth.Model');
-App::uses('OAuthComponent', 'OAuth.Controller/Component');
+App::uses('OAuthUtility', 'OAuth.Lib');
 App::uses('String', 'Utility');
 App::uses('Security', 'Utility');
 
@@ -121,7 +121,7 @@ class Client extends OAuthAppModel {
 		} else {
 			return false;
 		}
-		
+
 		/**
 		 * in case you have additional fields in the clients table such as name, description etc
 		 * and you are using $data['Client']['name'], etc to save
@@ -159,7 +159,10 @@ class Client extends OAuthAppModel {
 	}
 
 	public function beforeSave($options = array()) {
-		$this->data['Client']['client_secret'] = OAuthComponent::hash($this->data['Client']['client_secret']);
+		$alias = $this->alias;
+		if (isset($this->data[$alias]['client_secret'])) {
+			$this->data[$alias]['client_secret'] = OAuthUtility::secure($this->data[$alias]['client_secret']);
+		}
 		return true;
 	}
 
