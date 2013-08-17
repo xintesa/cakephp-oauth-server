@@ -1,7 +1,7 @@
 <?php
 
 App::uses('ModelBehavior', 'Model');
-App::uses('Security', 'Utility');
+App::uses('OAuthUtility', 'OAuth.Lib');
 
 /**
  * Enable automatic field hashing when in Model::save() Model::find()
@@ -31,7 +31,7 @@ class HashedFieldBehavior extends ModelBehavior {
 		foreach ((array) $setting['fields'] as $field) {
 			if (array_key_exists($field, $Model->data[$Model->alias])) {
 				$data = $Model->data[$Model->alias][$field];
-				$Model->data[$Model->alias][$field] = Security::hash($data, null, true);
+				$Model->data[$Model->alias][$field] = OAuthUtility::hash($data);
 			}
 		}
 		return true;
@@ -52,7 +52,7 @@ class HashedFieldBehavior extends ModelBehavior {
 			}
 			if (isset($queryField)) {
 				$data = $conditions[$queryField];
-				$conditions[$queryField] = Security::hash($data, null, true);
+				$conditions[$queryField] = OAuthUtility::hash($data);
 			}
 		}
 		return $queryData;

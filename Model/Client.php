@@ -1,6 +1,7 @@
 <?php
 
 App::uses('OAuthAppModel', 'OAuth.Model');
+App::uses('OAuthUtility', 'Lib');
 App::uses('String', 'Utility');
 
 /**
@@ -50,14 +51,6 @@ class Client extends OAuthAppModel {
 		'redirect_uri' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-			),
-		),
-	);
-
-	public $actsAs = array(
-		'OAuth.HashedField' => array(
-			'fields' => array(
-				'client_secret'
 			),
 		),
 	);
@@ -162,6 +155,16 @@ class Client extends OAuthAppModel {
 			$str .= $chars[mt_rand(0, $count - 1)];
 		}
 		return OAuthComponent::hash($str);
+	}
+
+/**
+ * Encrypt client secret
+ */
+	public function beforeSave($options) {
+		if (isset($this->data[$this->alias]['client_secret'])) {
+			$this->data[$this->alias]['client_secret'] = OAuthUtility::encrypt($this->data[$this->alias]['client_secret']);
+		}
+		return true;
 	}
 
 	public function afterSave($created) {
