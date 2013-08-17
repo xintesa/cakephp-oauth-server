@@ -399,15 +399,17 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
  */
 	public function checkClientCredentials($client_id, $client_secret = null) {
 		$conditions = array('client_id' => $client_id);
-		if ($client_secret) {
-			$conditions['client_secret'] = $client_secret;
-		}
 		$client = $this->Client->find('first', array(
 			'conditions' => $conditions,
 			'recursive' => -1
 		));
-		if ($client) {
-			return $client['Client'];
+		if ($client && $client_secret) {
+			$decrypted = self::decrypt($client['Client']['client_secret']);
+			if ($decrypted == $client_secret) {
+				return $client['Client'];
+			} else {
+				return false;
+			}
 		};
 		return false;
 	}
