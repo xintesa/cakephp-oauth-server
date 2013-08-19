@@ -10,6 +10,17 @@ App::uses('OAuthAppController', 'OAuth.Controller');
 class ClientsController extends OAuthAppController {
 
 /**
+ * beforeFilter
+ */
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->loadModel('Users.Role');
+		$this->Role->Behaviors->attach('Croogo.Aliasable');
+		$isAdmin = $this->Session->read('Auth.User.role_id') == $this->Role->byAlias('admin');
+		$this->set(compact('isAdmin'));
+	}
+
+/**
  * admin_index method
  *
  * @return void

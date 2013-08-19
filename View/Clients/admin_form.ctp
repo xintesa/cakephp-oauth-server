@@ -41,9 +41,18 @@ echo $this->Form->create('Client');
 				echo $this->Form->input('redirect_uri', array(
 					'label' => 'Redirect Uri',
 				));
-				echo $this->Form->input('user_id', array(
+				$username = isset($this->data['User']['username']) ? $this->data['User']['username'] : null;
+				echo $this->Form->autocomplete('user_id', array(
+					'type' => 'text',
 					'label' => 'User Id',
-					'empty' => true,
+					'default' => $username,
+					'autocomplete' => array(
+						'data-displayField' => 'username',
+						'data-primaryKey' => 'id',
+						'data-queryField' => 'name',
+						'data-relatedElement' => '#ClientUserId',
+						'data-url' => '/api/v1.0/users/lookup.json',
+					),
 				));
 				echo $this->Croogo->adminTabs();
 			?>
