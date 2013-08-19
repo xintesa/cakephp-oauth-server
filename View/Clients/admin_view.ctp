@@ -15,12 +15,6 @@ $this->Html
 		<li><?php echo $this->Form->postLink(__d('croogo', 'Delete Client'), array('action' => 'delete', $client['Client']['client_id']), array('button' => 'default'), __d('croogo', 'Are you sure you want to delete # %s?', $client['Client']['client_id'])); ?> </li>
 		<li><?php echo $this->Html->link(__d('croogo', 'List Clients'), array('action' => 'index'), array('button' => 'default')); ?> </li>
 		<li><?php echo $this->Html->link(__d('croogo', 'New Client'), array('action' => 'add'), array('button' => 'default')); ?> </li>
-		<li><?php echo $this->Html->link(__d('croogo', 'List Access Tokens'), array('controller' => 'access_tokens', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__d('croogo', 'New Access Token'), array('controller' => 'access_tokens', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__d('croogo', 'List Auth Codes'), array('controller' => 'auth_codes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__d('croogo', 'New Auth Code'), array('controller' => 'auth_codes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__d('croogo', 'List Refresh Tokens'), array('controller' => 'refresh_tokens', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__d('croogo', 'New Refresh Token'), array('controller' => 'refresh_tokens', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
 </div>
@@ -32,11 +26,13 @@ $this->Html
 			<?php echo h($client['Client']['client_id']); ?>
 			&nbsp;
 		</dd>
+		<?php if ($isAdmin): ?>
 		<dt><?php echo __d('croogo', 'Client Secret'); ?></dt>
 		<dd>
-			<?php echo h($client['Client']['client_secret']); ?>
+			<?php echo h(OAuthUtility::decrypt($client['Client']['client_secret'])); ?>
 			&nbsp;
 		</dd>
+		<?php endif; ?>
 		<dt><?php echo __d('croogo', 'Name'); ?></dt>
 		<dd>
 			<?php echo h($client['Client']['name']); ?>
