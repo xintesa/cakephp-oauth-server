@@ -1,7 +1,7 @@
 <?php
 
 App::uses('OAuthAppModel', 'OAuth.Model');
-App::uses('OAuthUtility', 'Lib');
+App::uses('OAuthUtility', 'OAuth.Lib');
 App::uses('String', 'Utility');
 
 /**
