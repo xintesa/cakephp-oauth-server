@@ -1,6 +1,6 @@
 <?php
 
-App::uses('CroogoApiController', 'Croogo.Controller');
+App::uses('CroogoAppController', 'Croogo.Controller');
 
 /**
  * OAuthUsersController
@@ -8,7 +8,7 @@ App::uses('CroogoApiController', 'Croogo.Controller');
  * @author rchavik@xintesa.com
  * @license MIT
  */
-class OAuthUsersController extends CroogoApiController {
+class OAuthUsersController extends CroogoAppController {
 
 	public $components = array(
 		'Auth',
