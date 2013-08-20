@@ -281,7 +281,7 @@ class OAuthUtility extends Object implements
  */
 	public function getAccessToken($oauth_token) {
 		$accessToken = $this->AccessToken->find('first', array(
-			'conditions' => array('oauth_token' => self::hash($oauth_token)),
+			'conditions' => array('oauth_token' => $oauth_token),
 			'recursive' => -1,
 		));
 		if ($accessToken) {
@@ -337,7 +337,7 @@ class OAuthUtility extends Object implements
  */
 	public function getRefreshToken($refresh_token) {
 		$refreshToken = $this->RefreshToken->find('first', array(
-			'conditions' => array('refresh_token' => self::hash($refresh_token)),
+			'conditions' => array('refresh_token' => $refresh_token),
 			'recursive' => -1
 		));
 		if ($refreshToken) {
@@ -415,7 +415,7 @@ class OAuthUtility extends Object implements
  */
 	public function getAuthCode($code) {
 		$authCode = $this->AuthCode->find('first', array(
-			'conditions' => array('code' => self::hash($code)),
+			'conditions' => array('code' => $code),
 			'recursive' => -1
 		));
 		if ($authCode) {
