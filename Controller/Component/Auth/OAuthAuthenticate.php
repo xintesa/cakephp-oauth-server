@@ -44,11 +44,10 @@ class OAuthAuthenticate extends BaseAuthenticate {
 			return false;
 		}
 
-		$hashedToken = $this->OAuthUtility->hash($token);
 		$AccessToken = ClassRegistry::init('OAuth.AccessToken');
 		$accessToken = $AccessToken->find('first', array(
 			'conditions' => array(
-				'oauth_token' => $hashedToken,
+				'oauth_token' => $token,
 			),
 		));
 
