@@ -311,9 +311,9 @@ class OAuthComponent extends Component {
  * @throws Exception
  */
 	public function __call($name, $arguments) {
-		if (method_exists($this->OAuthUtility, $name)) {
+		if (method_exists($this->OAuthUtility->OAuth2, $name)) {
 			try {
-				return call_user_func_array(array($this->OAuthUtility, $name), $arguments);
+				return call_user_func_array(array($this->OAuthUtility->OAuth2, $name), $arguments);
 			} catch (Exception $e) {
 				if (method_exists($e, 'sendHttpResponse')) {
 					$e->sendHttpResponse();
