@@ -66,7 +66,7 @@ class OAuthController extends OAuthAppController {
 			//Did they accept the form? Adjust accordingly
 			$accepted = $this->request->data['accept'] == 'Yep';
 			try {
-				$this->OAuth->finishClientAuthorization($accepted, $userId, $this->request->data['Authorize']);
+				$this->OAuth->OAuthUtility->finishClientAuthorization($accepted, $userId, $this->request->data['Authorize']);
 			} catch (OAuth2RedirectException $e) {
 				$e->sendHttpResponse();
 			}
@@ -80,7 +80,7 @@ class OAuthController extends OAuthAppController {
 				$this->Session->delete('OAuth.params');
 		} else {
 			try {
-				$OAuthParams = $this->OAuth->getAuthorizeParams();
+				$OAuthParams = $this->OAuth->OAuthUtility->getAuthorizeParams();
 			} catch (Exception $e){
 				$e->sendHttpResponse();
 			}
@@ -96,7 +96,7 @@ class OAuthController extends OAuthAppController {
  *
  */
 	public function login () {
-		$OAuthParams = $this->OAuth->getAuthorizeParams();
+		$OAuthParams = $this->OAuth->OAuthUtility->getAuthorizeParams();
 		if ($this->request->is('post')) {
 			$this->validateRequest();
 
@@ -141,7 +141,7 @@ class OAuthController extends OAuthAppController {
 	public function token() {
 		$this->autoRender = false;
 		try {
-			$this->OAuth->grantAccessToken();
+			$this->OAuth->OAuthUtility->grantAccessToken();
 		} catch (OAuth2ServerException $e) {
 			$e->sendHttpResponse();
 		}
