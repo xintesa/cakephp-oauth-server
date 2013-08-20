@@ -244,7 +244,7 @@ class OAuthComponent extends Component {
 				));
 			$token = empty($token) ? $this->OAuthUtility->getBearerToken() : $token;
 			$data = $this->AccessToken->find('first', array(
-				'conditions' => array('oauth_token' => OAuthUtility::hash($token)),
+				'conditions' => array('oauth_token' => $token),
 				'recursive' => 1
 			));
 			if (!$data) {
