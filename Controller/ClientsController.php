@@ -60,7 +60,9 @@ class ClientsController extends OAuthAppController {
 				$this->Session->setFlash(__d('croogo', 'The client could not be saved. Please, try again.'), 'default', array('class' => 'error'));
 			}
 		}
-		$users = $this->Client->User->find('list');
+		$users = array(
+			$this->Auth->user('id') => $this->Auth->user('username'),
+		);
 		$this->set(compact('users'));
 	}
 
@@ -86,7 +88,14 @@ class ClientsController extends OAuthAppController {
 			$options = array('conditions' => array('Client.' . $this->Client->primaryKey => $id));
 			$this->request->data = $this->Client->find('first', $options);
 		}
-		$users = $this->Client->User->find('list');
+		$users = $this->Client->User->find('list', array(
+			'conditions' => array(
+				$this->Client->User->escapeField('id') => array(
+					$this->Auth->user('id'),
+					$this->request->data['Client']['user_id'],
+				),
+			),
+		));
 		$this->set(compact('users'));
 	}
 
