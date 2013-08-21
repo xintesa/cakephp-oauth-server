@@ -326,6 +326,7 @@ class OAuthComponent extends Component implements IOAuth2Storage, IOAuth2Refresh
  *
  * @param string $password
  * @return string Hashed password
+ * @deprecated Will be removed in future version
  */
 	public static function hash($password) {
 		return Security::hash($password, null, true);

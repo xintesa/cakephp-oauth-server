@@ -154,7 +154,7 @@ class Client extends OAuthAppModel {
 		while ($length--) {
 			$str .= $chars[mt_rand(0, $count - 1)];
 		}
-		return OAuthComponent::hash($str);
+		return OAuthUtility::hash($str);
 	}
 
 /**
