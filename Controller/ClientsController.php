@@ -18,6 +18,10 @@ class ClientsController extends OAuthAppController {
 		$this->Role->Behaviors->attach('Croogo.Aliasable');
 		$isAdmin = $this->Session->read('Auth.User.role_id') == $this->Role->byAlias('admin');
 		$this->set(compact('isAdmin'));
+
+		if ($isAdmin) {
+			$this->Client->Behaviors->load('Croogo.Trackable');
+		}
 	}
 
 /**
