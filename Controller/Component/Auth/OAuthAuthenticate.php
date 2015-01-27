@@ -45,7 +45,7 @@ class OAuthAuthenticate extends BaseAuthenticate {
  * @return mixed Either false or an array of user information
  * @see OAuth2::getBearerToken()
  */
-	public function getUser($request) {
+	public function getUser(CakeRequest $request) {
 		if (!$this->_hasCredentials($request)) {
 			return false;
 		}

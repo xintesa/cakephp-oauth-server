@@ -119,7 +119,7 @@ class OAuthComponent extends Component {
 		$this->User = ClassRegistry::init(array(
 			'class' => $this->authenticate['userModel'],
 			'alias' => $this->authenticate['userModel']
-			));
+		));
 
 		$isMissingAction = (
 			$controller->scaffold === false &&

@@ -168,14 +168,14 @@ class Client extends OAuthAppModel {
 /**
  * Encrypt client secret
  */
-	public function beforeSave($options) {
+	public function beforeSave($options = array()) {
 		if (isset($this->data[$this->alias]['client_secret'])) {
 			$this->data[$this->alias]['client_secret'] = OAuthUtility::encrypt($this->data[$this->alias]['client_secret']);
 		}
 		return true;
 	}
 
-	public function afterSave($created) {
+	public function afterSave($created, $options = array()) {
 		if ($this->addClientSecret) {
 			$this->data['Client']['client_secret'] = $this->addClientSecret;
 		}
