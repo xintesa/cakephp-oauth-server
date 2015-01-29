@@ -96,6 +96,9 @@ class OAuthController extends OAuthAppController {
  *
  */
 	public function login () {
+		if (!$this->request->query('client_id')) {
+			throw new UnexpectedValueException('Missing client_id');
+		}
 		$OAuthParams = $this->OAuth->getAuthorizeParams();
 		if ($this->request->is('post')) {
 			$this->validateRequest();
