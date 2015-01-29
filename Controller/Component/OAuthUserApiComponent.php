@@ -46,7 +46,7 @@ class OAuthUserApiComponent extends BaseApiComponent {
 		if ($user) {
 			$fields = array(
 				'id', 'username', 'name', 'website', 'image', 'bio', 'timezone',
-				'created', 'updated',
+				'created', 'updated', 'email',
 			);
 			$fields = array_combine($fields, array_fill(0, count($fields), null));
 			$user = array_intersect_key($user['User'], $fields);
