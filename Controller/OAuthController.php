@@ -109,7 +109,7 @@ class OAuthController extends OAuthAppController {
 				$this->Session->write('OAuth.params', $OAuthParams);
 
 				//Off we go
-				$this->redirect(array('action' => 'authorize'));
+				return $this->redirect(array('action' => 'authorize'));
 			} else {
 				$this->Session->setFlash(__('Username or password is incorrect'), 'default', array(), 'auth');
 			}
