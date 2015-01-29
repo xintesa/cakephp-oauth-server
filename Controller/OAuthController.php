@@ -50,7 +50,7 @@ class OAuthController extends OAuthAppController {
  */
 	public function authorize() {
 		if (!$this->Auth->loggedIn()) {
-			$this->redirect(array('action' => 'login', '?' => $this->request->query));
+			return $this->redirect(array('action' => 'login', '?' => $this->request->query));
 		}
 
 		if ($this->request->is('post')) {
@@ -76,8 +76,8 @@ class OAuthController extends OAuthAppController {
 		$this->response->header('X-Frame-Options: DENY');
 
 		if ($this->Session->check('OAuth.params')) {
-				$OAuthParams = $this->Session->read('OAuth.params');
-				$this->Session->delete('OAuth.params');
+			$OAuthParams = $this->Session->read('OAuth.params');
+			$this->Session->delete('OAuth.params');
 		} else {
 			try {
 				$OAuthParams = $this->OAuth->getAuthorizeParams();

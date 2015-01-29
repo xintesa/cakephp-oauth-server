@@ -52,7 +52,7 @@ class OAuthUserApiComponent extends BaseApiComponent {
 			$user = array_intersect_key($user['User'], $fields);
 		}
 
-		$controller->set('user', array('user' => $user));
+		$controller->set(compact('user'));
 		$controller->set('_serialize', 'user');
 	}
 
